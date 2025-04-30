@@ -8,6 +8,7 @@ function App() {
 
   const addToDo = () =>{
     addTodos([...todos, {id:Date.now(), todo: todo, status:false}])
+    setTodo('')
   }
   const makeTodo = (e) =>{
     setTodo(e.target.value)
@@ -24,11 +25,16 @@ function App() {
     )
     addTodos(updatedTodos)
   }
-
   const removeTodo = (id) =>{
     const updatedTodos = todos.filter(todo=>todo.id!=id)
-    console.log(updatedTodos)
     addTodos(updatedTodos)
+  }
+  const editTodo = (todo,id) =>{
+    const updatedTodos = todos.filter(todo=>
+      todo.id!=id
+    )
+    addTodos(updatedTodos)
+    setTodo(todo)
   }
 
   return(
@@ -63,7 +69,7 @@ function App() {
                         </div>
                         <div className="todoAction">
                           <i class="bi bi-check-circle-fill doneTodo" onClick={()=>changeStatus(todo.id)}></i>
-                          <i class="bi bi-pencil-fill"></i>
+                          <i class="bi bi-pencil-fill" onClick={()=>editTodo(todo.todo, todo.id)}></i>
                         </div>
                       </div>
                     )
